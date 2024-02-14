@@ -1,5 +1,5 @@
 import sys
-string = list(input().rstrip())
+string = list(sys.stdin.readline().rstrip())
 _dict = {}
 
 for i,j in enumerate(string):
@@ -8,14 +8,14 @@ for i,j in enumerate(string):
     else:
         _dict[j].append(i)
         
-n = int(input())
+n = int(sys.stdin.readline())
 
 for _ in range(n):
-    a,b,c = input().split()
+    a,b,c = sys.stdin.readline().split()
     result = 0
     b = int(b)
     c = int(c)
-    if a in string:
+    if a in _dict.keys():
         for k in _dict[a]:
             if k>=b and k<=c:
                 result+=1
