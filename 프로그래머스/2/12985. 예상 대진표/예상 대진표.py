@@ -12,16 +12,22 @@ def solution(n,a,b):
     # N의 기준을 절반으로 접고 또 비교한다. a랑 b도 그에 맞게 값을 수정
     # 따른 곳에 있을 때까지 절반으로 또 비교
     # log2N값이 답임
-    
-    while True:
-        point = int(n//2)
-        if (a<=point and b>point) or (a>point and b<=point):
-            return math.log2(n)
-            break
-        elif a<=point and b<=point:
-            n = point
-        else:
-            a = a-point
-            b = b-point
-            n = point
+
+# <<<<첫번째 답안>>>>
+#     while True:
+#         point = int(n//2)
+#         if (a<=point and b>point) or (a>point and b<=point):
+#             return math.log2(n)
+#             break
+#         elif a<=point and b<=point:
+#             n = point
+#         else:
+#             a = a-point
+#             b = b-point
+#             n = point
             
+    while a!=b:
+        a=(a+1)//2
+        b=(b+1)//2
+        answer+=1
+    return answer
