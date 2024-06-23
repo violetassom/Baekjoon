@@ -1,34 +1,30 @@
 from collections import deque
 def solution(maps):
-    move = [[-1,0],[0,-1],[0,1],[1,0]]
+    moves = [[1,0],[0,1],[-1,0],[0,-1]]
+    n = len(maps)
+    m = len(maps[0])
     
-    n=len(maps)
-    m=len(maps[0])
-    
-    dist = [[-1]*m for _ in range(n)]
-    
-    def bfs(start):
-        q=deque([start])
-        dist[start[0]][start[1]]=1
-        while q:
-            print('q',q)
-            here = q.popleft()
-            for direct in move:
-                row,column = here[0]+direct[0],here[1]+direct[1]
-                if row<0 or row>=n or column <0 or column >= m:
+    trace = [[0]*m for _ in range(n)]
+    def bfs(start_x,start_y):
+        queue = deque([(start_x,start_y)])
+        trace[start_x][start_y]=1
+        while queue:
+            q = queue.popleft()
+            here_x,here_y = q
+            for move in moves:
+                new_x,new_y = here_x+move[0],here_y+move[1]
+                if new_x<0 or new_x>=n or new_y<0 or new_y>=m:
                     continue
-                if maps[row][column]==0:
+                if maps[new_x][new_y]==0:
                     continue
-                if dist[row][column]==-1:
-                    print('row',row,'col',column)
-                    q.append([row,column])
-                    dist[row][column]=dist[here[0]][here[1]]+1
-            print('for 끝')
-        return dist
-    bfs([0,0])
+                if trace[new_x][new_y]!=0:
+                    continue
+                trace[new_x][new_y]=trace[here_x][here_y]+1
+                if new_x==n-1 and new_y==m-1:
+                    return trace[new_x][new_y]
+                queue.append((new_x,new_y))
+        return -1
     
-    return dist[n-1][m-1]
-            
-                
-    answer = 0
+    
+    answer = bfs(0,0)
     return answer
