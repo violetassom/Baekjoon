@@ -1,28 +1,15 @@
-# def dfs(computers,visited,node):
-#     visited[node]=True
-#     for idx,connected in enumerate(computers[node]):
-#         if connected and not visited[idx]:
-#             dfs(computers,visited,idx)
-
-# def solution(n, computers):
-#     answer = 0
-#     visited = [False]*n
-#     for i in range(n):
-#         if not visited[i]:
-#             dfs(computers,visited,i)
-#             answer += 1
-#     return answer
-def dfs(computers,visited,node):
-    visited[node]=True
-    for idx,connected in enumerate(computers[node]):
-        # 방문 안했으면 방문해야함
-        if not visited[idx] and connected:
-            dfs(computers,visited,idx)
-def solution(n,computers):
+def solution(n, computers):
+    visited = [0]*n
+    def dfs(visited,node):
+        if visited[node]==0:
+            visited[node]=1
+            for i in range(n):
+                if visited[i]==0 and computers[node][i]==1:
+                    dfs(visited,i)
     answer = 0
-    visited = [False]*n
-    for i in range(n):
-        if not visited[i]:
-            dfs(computers,visited,i)
+    for j in range(n):
+        if visited[j]==0:
+            dfs(visited,j)
             answer+=1
+            
     return answer
